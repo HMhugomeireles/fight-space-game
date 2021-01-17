@@ -9,7 +9,6 @@ class Square {
     }
 
     draw() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
         this.ctx.beginPath();
         this.ctx.rect(this.x, this.y, this.width, this.width);
         this.ctx.fillStyle = this.color;
