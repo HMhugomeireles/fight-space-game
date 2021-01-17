@@ -14,3 +14,7 @@ a {
 * {
   box-sizing: border-box;
 }
+
+canvas {
+  background: #f1f1f1;
+}

@@ -39,6 +39,13 @@ class Square {
     update() {
         this.draw()
     }
+
+    getPosition() {
+        return {
+            x: this.x,
+            y: this.y
+        }
+    }
 }
 
 export default Square

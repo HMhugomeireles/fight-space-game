@@ -33,8 +33,8 @@ class Player extends Square {
         }
     }
 
-    fight(projectileTarget) {
-        
+    getPosition() {
+       return super.getPosition()
     }
 }
 
