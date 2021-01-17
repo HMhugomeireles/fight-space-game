@@ -17,24 +17,13 @@ export default function Home() {
     
     function render() {
       requestAnimationFrame(render)
+      canvasContext.fillStyle = "rgba(0,0,0,0.1)"
+      canvasContext.fillRect(0, 0, canvas.width, canvas.height)
       game.start()
     }
     render()
 
   }, [])
 
-  return (
-    <>
-      <Head>
-        <title>Fight Space</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      
-      <canvas 
-        id="game-screen"
-        ref={canvasRef}
-        
-      />
-    </>
-  )
+  return <canvas ref={canvasRef}/>
 }
