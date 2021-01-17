@@ -2,7 +2,7 @@ import Circle from './geometrical-figures/circle'
 
 class Projectile extends Circle {
     constructor(position, canvasContext, canvas, velocity) {
-        super((position.x + 15), (position.y + 15), 5, "red", canvasContext, canvas);
+        super((position.x + 15), (position.y + 15), 2, "red", canvasContext, canvas);
         this.velocity = velocity;
     }
 
