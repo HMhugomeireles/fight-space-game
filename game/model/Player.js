@@ -1,9 +1,17 @@
 import Square from './geometrical-figures/square'
-import Projectile from './Projectile'
+import StatusBar from './StatusBar'
+
+const PLAYER_WIDTH = 20
 
 class Player extends Square {
     constructor(color, canvasContext, canvas) {
-        super(200, 200, 30, color, canvasContext, canvas);
+        super(200, 200, PLAYER_WIDTH, color, canvasContext, canvas);
+        this.statusBar = new StatusBar({ x: 200, y: 200 }, PLAYER_WIDTH, canvasContext, canvas);
+    }
+    
+    draw() {
+        super.draw()
+        this.statusBar.draw()
     }
 
     move(position) {
@@ -12,25 +20,24 @@ class Player extends Square {
             case 'A':
             case "ArrowLeft":
                 super.moveLeft()
-                return
+                break
             case "d":
             case "D":
             case 'right':
                 super.moveRight();
-                return
+                break
             case "w":
             case "W": 
             case "ArrowTop":
                 super.moveTop();
-                return 
+                break 
             case "s":
             case "S":
             case 'ArrowDown':
                 super.moveDown();
-                return
-            default:
-                return;
+                break
         }
+        this.statusBar.moveStatusBar(this.getPosition())
     }
 
     getPosition() {
