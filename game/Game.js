@@ -5,7 +5,7 @@ class Game {
     constructor(canvasContext, canvas) {
         this.canvasContext = canvasContext;
         this.canvas = canvas;
-        this.player = new Player('green', canvasContext, canvas);
+        this.player = new Player('white', canvasContext, canvas);
         this.playerMovement = { LEFT: false, RIGHT: false, TOP: false, DOWN: false }
         this.projectiles = []
     }
@@ -22,19 +22,19 @@ class Game {
             const playerPosition = this.player.getPosition()
 
             const angle = Math.atan2(
-                e.clientY - this.canvas.height / 2, 
-                e.clientX - this.canvas.width / 2)
+                e.clientY - playerPosition.y, 
+                e.clientX - playerPosition.x)
 
             const velocity = {
                 x: Math.cos(angle),
                 y: Math.sin(angle)
             }
-            const p = new Projectile(
+            const projectile = new Projectile(
                 playerPosition, 
-                this.canvasContext, 
+                this.canvasContext,
                 this.canvas, 
                 velocity)
-            this.projectiles.push(p)
+            this.projectiles.push(projectile)
             
         }
         
