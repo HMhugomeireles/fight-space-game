@@ -1,9 +1,9 @@
-const PLAYER_WIDTH = 15
+const SHIP_WIDTH = 15
 const INITIAL_POSITION = { X: 200, Y: 200 };
 const DISTANCE_BETWEEN = 5;
 
 export {
-    PLAYER_WIDTH,
+    SHIP_WIDTH,
     INITIAL_POSITION,
     DISTANCE_BETWEEN
 }
