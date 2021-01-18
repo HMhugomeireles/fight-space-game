@@ -1,4 +1,5 @@
 import { INITIAL_POSITION, PLAYER_WIDTH } from './configs'
+import { moveInRelativePositionX, moveInRelativePositionY } from './util'
 
 class Player {
     constructor(canvasContext, canvas) {
@@ -17,6 +18,15 @@ class Player {
         this.ctx.beginPath();
         this.ctx.arc(this.x, this.y, this.radius, Math.PI * 2, false);
         this.ctx.fillStyle = "white";
+        this.ctx.fill();
+
+        this.ctx.beginPath();
+        this.ctx.rect(
+            moveInRelativePositionX(this.x, (PLAYER_WIDTH * 2)), 
+            moveInRelativePositionY(this.y, (PLAYER_WIDTH * 2)), 
+            PLAYER_WIDTH * 4, 
+            2.5);
+        this.ctx.fillStyle = "green";
         this.ctx.fill();
     }
 
