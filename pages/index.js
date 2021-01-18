@@ -44,7 +44,7 @@ export default function Home() {
     }
 
     function render() {
-      canvasContext.fillStyle = "rgba(0,0,0,0.1)"
+      canvasContext.fillStyle = "rgba(0,0,0,0.4)"
       canvasContext.fillRect(0, 0, canvas.width, canvas.height)
       player.draw()
       player.update(userState)
@@ -55,9 +55,5 @@ export default function Home() {
 
   }, [])
 
-  return <canvas 
-            ref={canvasRef} 
-            //onMouseDown={mouseDownCanvas} 
-            //onMouseUp={mouseUpCanvas}
-          />
+  return <canvas ref={canvasRef} />
 }

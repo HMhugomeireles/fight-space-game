@@ -16,11 +16,19 @@ class Ship {
     }
 
     _draw() {
+        // ship
         this.ctx.beginPath();
         this.ctx.arc(this.x, this.y, this.radius, Math.PI * 2, false);
         this.ctx.fillStyle = this.color;
         this.ctx.fill();
 
+        this.ctx.beginPath();
+        this.ctx.rect(this.x - 200, this.y - 200, 400, 400);
+        this.ctx.lineWidth = 0.1;
+        this.ctx.strokeStyle = "yellow";
+        this.ctx.stroke();
+
+        // health
         this.ctx.beginPath();
         this.ctx.rect(
             moveInRelativePositionX(this.x, (SHIP_WIDTH * 2)), 
