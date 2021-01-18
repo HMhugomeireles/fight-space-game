@@ -1,4 +1,4 @@
-const PLAYER_WIDTH = 20
+const PLAYER_WIDTH = 15
 const INITIAL_POSITION = { X: 200, Y: 200 };
 
 
