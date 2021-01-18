@@ -1,7 +1,6 @@
-import { useEffect, useRef } from 'react'
-import Head from 'next/head'
-
-import Game from '../game/Game'
+import { useEffect, useRef, useState } from 'react'
+import Player from '../game/Player'
+import { INITIAL_POSITION } from '../game/configs'
 
 export default function Home() {
   const canvasRef = useRef()
@@ -12,18 +11,45 @@ export default function Home() {
     
     canvas.width = innerWidth
     canvas.height = innerHeight
+
+    let userState = {
+      x: INITIAL_POSITION.X,
+      y: INITIAL_POSITION.Y,
+      mouseClick: false
+    }
+  
+    document.onmousedown = (e) => {
+      userState = {
+        ...userState,  
+        mouseClick: false
+      }
+    }
     
-    const game = new Game(canvasContext, canvas)
+    document.onmouseup = (e) => {
+      userState = {
+        x: e.clientX,
+        y: e.clientY,
+        mouseClick: true
+      }
+    }
     
+    const player = new Player(canvasContext, canvas)
+
+
     function render() {
-      requestAnimationFrame(render)
       canvasContext.fillStyle = "rgba(0,0,0,0.1)"
       canvasContext.fillRect(0, 0, canvas.width, canvas.height)
-      game.start()
+      player.draw()
+      player.update(userState)
+      requestAnimationFrame(render)
     }
     render()
 
   }, [])
 
-  return <canvas ref={canvasRef}/>
+  return <canvas 
+            ref={canvasRef} 
+            //onMouseDown={mouseDownCanvas} 
+            //onMouseUp={mouseUpCanvas}
+          />
 }

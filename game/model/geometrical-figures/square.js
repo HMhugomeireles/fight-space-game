@@ -16,22 +16,18 @@ class Square {
     }
 
     moveLeft() {
-        this.update()
         this.x = this.x - 2
     }
 
     moveRight() {
-        this.update()
         this.x = this.x + 2
     }
 
     moveTop() {
-        this.update()
         this.y = this.y - 2
     }
 
     moveDown() {
-        this.update()
         this.y = this.y + 2
     }
 

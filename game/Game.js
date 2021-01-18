@@ -1,4 +1,4 @@
-import Player from './model/Player'
+import Player from './Player'
 import Projectile from './model/Projectile'
 
 class Game {
@@ -25,17 +25,24 @@ class Game {
                 e.clientY - playerPosition.y, 
                 e.clientX - playerPosition.x)
 
+                console.log("angle", angle + 0.5)
+
             const velocity = {
                 x: Math.cos(angle),
                 y: Math.sin(angle)
             }
             const projectile = new Projectile(
                 playerPosition, 
-                this.canvasContext,
+                this.canvasContext, 
                 this.canvas, 
                 velocity)
-            this.projectiles.push(projectile)
+            //this.projectiles.push(projectile)
             
+            this.player.update(velocity)
+        }
+
+        document.onclick = (e) => {
+            this.player.navigateTo({ x: e.clientX, y: e.clientY})
         }
         
         this.player.draw()
