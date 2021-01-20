@@ -1,7 +1,9 @@
 import { useEffect, useRef } from 'react'
+import Game from '../game/Game'
 import Player from '../game/model/Player'
 import Enemy from '../game/model/Enemy'
 import { INITIAL_POSITION } from '../game/configs'
+import { gameState } from '../game/game-state'
 
 export default function Home() {
   const canvasRef = useRef()
@@ -12,46 +14,13 @@ export default function Home() {
     
     canvas.width = innerWidth
     canvas.height = innerHeight
-
-    let userState = {
-      x: INITIAL_POSITION.X,
-      y: INITIAL_POSITION.Y,
-      mouseClick: false
-    }
   
-    document.onmousedown = (e) => {
-      userState = {
-        ...userState,  
-        mouseClick: false
-      }
-    }
-    
-    document.onmouseup = (e) => {
-      userState = {
-        x: e.clientX,
-        y: e.clientY,
-        mouseClick: true
-      }
-    }
-    
     const player = new Player(INITIAL_POSITION, "white", canvasContext, canvas)
-    const enemies = [new Enemy({ X: 200, Y: 400 }, "red", canvasContext, canvas)]
-
-    function animateEnemies() {
-      enemies.forEach(enemy => {
-        enemy.draw()
-      })
-    }
-
-    function render() {
-      canvasContext.fillStyle = "rgba(0,0,0,0.4)"
-      canvasContext.fillRect(0, 0, canvas.width, canvas.height)
-      player.draw()
-      player.update(userState)
-      animateEnemies()
-      requestAnimationFrame(render)
-    }
-    render()
+    const gameObjects = [new Enemy({ X: 400, Y: 200 }, "red", canvasContext, canvas)]
+    
+    const game = new Game(gameState, {player, gameObjects }, canvasContext, canvas);
+    game.loadPlayerController();
+    game.start()
 
   }, [])
 
