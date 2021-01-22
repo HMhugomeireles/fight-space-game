@@ -1,9 +1,9 @@
 import { INITIAL_POSITION } from './configs'
 
-export let gameState = {
+export const gameState = {
     playerState: {
-        x: INITIAL_POSITION.X,
-        y: INITIAL_POSITION.Y,
+        x: INITIAL_POSITION.x,
+        y: INITIAL_POSITION.y,
         mouseClick: false
     },
     gameObjectState: [
