@@ -7,7 +7,8 @@ export const ShipConfiguration = {
     },
     ship: {
         type: 'default',
-        radarRange: 1.3,
+        radarRange: 1,
         health: 100,
+        damage: 20
     }
 }
