@@ -2,7 +2,6 @@ import { useEffect, useRef } from 'react'
 import Game from '../game/Game'
 import Player from '../game/model/Player'
 import Enemy from '../game/model/Enemy'
-import { INITIAL_POSITION } from '../game/configs'
 import { gameState } from '../game/game-state'
 
 export default function Home() {
@@ -15,8 +14,8 @@ export default function Home() {
     canvas.width = innerWidth
     canvas.height = innerHeight
   
-    const player = new Player(INITIAL_POSITION, "white", canvasContext, canvas)
-    const gameObjects = [new Enemy({ X: 400, Y: 200 }, "red", canvasContext, canvas)]
+    const player = new Player(gameState.playerState, canvasContext, canvas)
+    const gameObjects = gameState.gameObjectState.map(gameObjectState => new Enemy(gameObjectState, canvasContext, canvas))
     
     const game = new Game(gameState, {player, gameObjects }, canvasContext, canvas);
     game.loadPlayerController();

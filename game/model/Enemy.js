@@ -1,9 +1,8 @@
 import Ship from './abstract/Ship'
 
 class Enemy extends Ship {
-    constructor(initialPosition, color, canvasContext, canvas) {
-        super(initialPosition, color, canvasContext, canvas)
-        this.health = 100
+    constructor(initialShipState, canvasContext, canvas) {
+        super(initialShipState, canvasContext, canvas)
     }
 
     draw() {

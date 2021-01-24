@@ -51,14 +51,14 @@ class Game {
 
     loadPlayerController() {
         document.onmousedown = (e) => {
-            this.gameState.playerState = {
-                ...this.gameState.playerState,  
+            this.gameState.playerState.position = {
+                ...this.gameState.playerState.position,  
                 mouseClick: false
             }
         }
         
         document.onmouseup = (e) => {
-            this.gameState.playerState = {
+            this.gameState.playerState.position = {
                 x: e.clientX,
                 y: e.clientY,
                 mouseClick: true
