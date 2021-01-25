@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import Game from '../game/Game'
 import Player from '../game/model/Player'
 import Enemy from '../game/model/Enemy'
-import { gameState } from '../game/game-state'
+import gameState from '../game/game-state'
 
 export default function Home() {
   const canvasRef = useRef()
@@ -13,9 +13,27 @@ export default function Home() {
     
     canvas.width = innerWidth
     canvas.height = innerHeight
+
+    const playerInitialState = {
+      name: "Player Ship",
+      ship: {
+        type: 'mark1',
+        color: "white"
+      }
+    }
   
-    const player = new Player(gameState.playerState, canvasContext, canvas)
-    const gameObjects = gameState.gameObjectState.map(gameObjectState => new Enemy(gameObjectState, canvasContext, canvas))
+    const player = new Player(playerInitialState, canvasContext, canvas)
+    const gameObjects = gameState.gameObjectState.map((gameObjectState, index) => {
+      const enemyInitialState = {
+        ...gameObjectState,
+        name: `Enemy ${index}`,
+        ship: {
+          ...gameObjectState.ship,
+          type: "default"
+        }
+      }
+      return new Enemy(enemyInitialState, canvasContext, canvas)
+    })
     
     const game = new Game(gameState, {player, gameObjects }, canvasContext, canvas);
     game.loadPlayerController();
