@@ -1,7 +1,7 @@
 const mark0 = {
     shipUI: {
         shipWidth: 10,
-        healthWidth: 60,
+        healthWidth: 80,
         radarWidth:  100,
         color: "red"
     },
@@ -16,7 +16,7 @@ const mark0 = {
 const mark1 = {
     shipUI: {
         shipWidth: 15,
-        healthWidth: 70,
+        healthWidth: 80,
         radarWidth:  100,
         color: "red"
     },

@@ -1,50 +1,111 @@
-import { moveInRelativePositionX, moveInRelativePositionY } from '../../util'
+import { generateHealthComponent, generateRadarComponent } from './util'
+import { ShipTypes } from './ship-properties'
 
 class Ship {
     constructor(initialShipState, canvasContext, canvas) {
-        this.shipState = initialShipState;
-        this.ctx = canvasContext,
+        this.name = initialShipState.name;
+        this.position = {};
+        this.shipUI = {};
+        this.base = {}
+        this._init(initialShipState)
+        this.ctx = canvasContext;
         this.canvas = canvas;
-        console.log("draw", this.shipState)
+        this.health = generateHealthComponent({ 
+            position: this.position, 
+            shipUI: this.shipUI,
+            base: this.base
+        })
+        this.radar = generateRadarComponent({
+            position: this.position, 
+            radarWidth: this.shipUI.radarWidth,
+            radarRange: this.base.radarRange
+        })
     }
 
+    _init(initialShipState) {
+        const { ship } = initialShipState
+        const { shipUI, base } = ShipTypes[`${ship.type}`];
+        
+        this.shipUI = { 
+            ...shipUI,
+            color: ship.color
+        }
+        this.position = {
+            x: 100,
+            y: 100
+        };
+        this.base = base;
+    }
+    
     _draw() {
-        const { position, ship } = this.shipState
+        const { x, y } = this.position;
+        const { shipWidth, color } = this.shipUI;
         // ship
         this.ctx.beginPath();
-        this.ctx.arc(position.x, position.y, ship.width, Math.PI * 2, false);
-        this.ctx.fillStyle = ship.color;
+        this.ctx.arc(x, y, shipWidth, Math.PI * 2, false);
+        this.ctx.fillStyle = color;
         this.ctx.fill();
 
-        const radarRange = (ship.width * 2) * ship.radarRange;
-        const radarPositionX = position.x - ((radarRange / 2) / 2);
-        const radarPositionY = position.y - ((radarRange / 2) / 2);
-        this.ctx.beginPath();
-        this.ctx.rect(radarPositionX, radarPositionY, radarRange, radarRange);
-        this.ctx.lineWidth = 0.1;
-        this.ctx.strokeStyle = "yellow";
-        this.ctx.stroke();
 
-        // health
-        const widthHeathRect = ship.width * 4
-        const positionX = position.x - ((widthHeathRect / 2) / 2)
-        const positionY = position.x - ((widthHeathRect / 2) / 2)
-        this.ctx.beginPath();
-        this.ctx.rect(positionX, positionY, widthHeathRect, 2.5);
-        this.ctx.fillStyle = "green";
-        this.ctx.fill();
+        this._drawHealth();
+        this._drawRadar();
+        
     }
 
-    _update(userState, secondsPassed){
-        const { position } = this.shipState;
+    _update(shipState, secondsPassed) {
+        const { position, ship } = shipState;
+        const { health, shield } = ship;
 
-        const dx = position.x - userState.x;
-        const dy = position.y - userState.y;
-        if (userState.x != position.x){
-            this.shipState.position.x -= dx / 90;
+        const dx = this.position.x - position.x;
+        const dy = this.position.y - position.y;
+        if (this.position.x != position.x){
+            this.position.x -= dx / 90;
         }
-        if (userState.y != position.y){
-            this.shipState.position.y -= dy / 90;
+        if (this.position.y != position.y){
+            this.position.y -= dy / 90;
+        }
+
+        this._updateHealth({ health, position: this.position, shipSize: this.shipUI.shipWidth})
+        this._updateRadar({ position: this.position })
+    }
+
+    // -------------------------
+
+    _drawHealth() {
+        this.ctx.beginPath();
+        this.ctx.lineWidth = 2;
+        this.ctx.strokeStyle = "#333";
+        this.ctx.fillStyle = this.health.color;
+        this.ctx.fillRect(this.health.x, this.health.y, this.health.w, this.health.h);
+        this.ctx.strokeRect(this.health.x, this.health.y, this.health.maxWidth, this.health.h);
+    }
+
+    _updateHealth({ health, position, shipSize }) {
+        if (this._health  > 0) {
+            const { x, y } = position;
+            this.health = {
+                ...this.health,
+                health: health,
+                x: x - (this._w / 2),
+                y: y + shipSize * 2,
+                w: (this._health / this._maxHealth) * this._maxWidth
+            }
+        }
+    }
+
+    _drawRadar() {
+        this.ctx.beginPath();
+        this.ctx.rect(this.radar.x, this.radar.y, this.radar.w, this.radar.h);
+        this.ctx.lineWidth = 0.2;
+        this.ctx.strokeStyle = "yellow";
+        this.ctx.stroke();
+    }
+
+    _updateRadar({ x, y }) {
+        this.radar = {
+            ...this.radar,
+            x: x - (this.radar.w / 2),
+            y: y - (this.radar.h / 2)
         }
     }
 }

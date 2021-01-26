@@ -1,19 +1,19 @@
 import Health from './Health'
 import Radar from './Radar'
 
-export function generateHealthComponent({ position, shipUI, base, canvasContext, canvas }) {
+export function generateHealthComponent({ position, shipUI, base }) {
     const w = shipUI.healthWidth + shipUI.shipWidth
     const x = position.x - (w / 2)
-    const y = position.y + shipUI.shipWidth
+    const y = position.y + shipUI.shipWidth * 2
     const maxHealth = base;
 
-    return new Health(x, y, w, maxHealth, "green", canvasContext, canvas)
+    return Health.build(x, y, w, maxHealth, "green")
 }
 
-export function generateRadarComponent({ position, radarWidth, radarRange, canvasContext, canvas }) {
+export function generateRadarComponent({ position, radarWidth, radarRange }) {
     const w = radarWidth * radarRange
     const x = position.x - (w / 2)
     const y = position.y - (w / 2);
 
-    return new Radar(x, y, w, canvasContext, canvas)
+    return Radar.build(x, y, w)
 }
