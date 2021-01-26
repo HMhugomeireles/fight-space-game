@@ -14,7 +14,7 @@ class Game {
         let secondsPassed;
         let oldTimeStamp;
 
-        console.log("[Game start] with", {gameState: this.gameState, gameObjects: this.gameObjects})
+        console.log("[Game start] with", { gameState: this.gameState })
 
         const gameLoop = (timeStamp) => {
 
@@ -29,10 +29,10 @@ class Game {
             
             this.clearCanvas();
             
-            this.player.draw(this.gameState.playerState, secondsPassed);
+            this.player.draw();
             // Do the same to draw
             this.gameObjects.forEach((gameObject, index) => {
-                gameObject.draw(this.gameState.gameObjectState[index], secondsPassed)
+                gameObject.draw()
             })
             
             requestAnimationFrame(gameLoop);
@@ -41,7 +41,7 @@ class Game {
     }
 
     clearCanvas() {
-        this.ctx.fillStyle = "rgba(0,0,0,0.4)"
+        this.ctx.fillStyle = "rgba(0,0,0,1)"
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height)
     }
 
@@ -52,16 +52,14 @@ class Game {
     loadPlayerController() {
         document.onmousedown = (e) => {
             this.gameState.playerState.position = {
-                ...this.gameState.playerState.position,  
-                mouseClick: false
+                ...this.gameState.playerState.position
             }
         }
         
         document.onmouseup = (e) => {
             this.gameState.playerState.position = {
                 x: e.clientX,
-                y: e.clientY,
-                mouseClick: true
+                y: e.clientY
             }
         }
     }
