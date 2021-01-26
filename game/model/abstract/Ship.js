@@ -6,25 +6,19 @@ class Ship {
         this.name = initialShipState.name;
         this.position = {};
         this.shipUI = {};
-        this.base = {}
+        this.base = {};
+        this.health = {};
+        this.radar = {};
         this._init(initialShipState)
         this.ctx = canvasContext;
         this.canvas = canvas;
-        this.health = generateHealthComponent({ 
-            position: this.position, 
-            shipUI: this.shipUI
-        })
-        this.radar = generateRadarComponent({
-            position: this.position, 
-            radarWidth: this.shipUI.radarWidth,
-            radarRange: this.base.radarRange
-        })
     }
 
     _init(initialShipState) {
         const { ship } = initialShipState
         const { shipUI, base } = ShipTypes[`${ship.type}`];
         
+        this.base = base;
         this.shipUI = { 
             ...shipUI,
             color: ship.color
@@ -33,7 +27,15 @@ class Ship {
             x: 100,
             y: 100
         };
-        this.base = base;
+        this.health = generateHealthComponent({ 
+            position: this.position, 
+            shipUI: shipUI
+        })
+        this.radar = generateRadarComponent({
+            position: this.position, 
+            radarWidth: shipUI.radarWidth,
+            radarRange: base.radarRange
+        })
     }
     
     _draw() {
@@ -106,11 +108,15 @@ class Ship {
         this.ctx.stroke();
     }
 
-    _updateRadar({ x, y }) {
+    _updateRadar({ position }) {
+        const { x, y } = position;
+        const positionX = x - this.radar.w / 2; 
+        const positionY = y - this.radar.w / 2;
+
         this.radar = {
             ...this.radar,
-            x: x - (this.radar.w / 2),
-            y: y - (this.radar.h / 2)
+            x: positionX,
+            y: positionY
         }
     }
 
