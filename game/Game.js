@@ -25,7 +25,7 @@ class Game {
             this.player.update(this.gameState.playerState, secondsPassed);
             // Loop over all game objects
             this.gameObjects.forEach((gameObject, index) => {
-                //gameObject.update(this.gameState.gameObjectState[index], secondsPassed)
+                gameObject.update(this.gameState.gameObjectState[index], secondsPassed)
             })
             
             this.clearCanvas();
@@ -33,7 +33,7 @@ class Game {
             this.player.draw();
             // Do the same to draw
             this.gameObjects.forEach((gameObject, index) => {
-                //gameObject.draw()
+                gameObject.draw()
             })
 
             // logger
