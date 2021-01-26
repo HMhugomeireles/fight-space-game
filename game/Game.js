@@ -6,6 +6,7 @@ class Game {
         this.gameObjects = [...gameObjects];
         this.player = player;
         this.gameState = initialState;
+        this.count = 0
     }
 
     start() {
@@ -24,7 +25,7 @@ class Game {
             this.player.update(this.gameState.playerState, secondsPassed);
             // Loop over all game objects
             this.gameObjects.forEach((gameObject, index) => {
-                gameObject.update(this.gameState.gameObjectState[index], secondsPassed)
+                //gameObject.update(this.gameState.gameObjectState[index], secondsPassed)
             })
             
             this.clearCanvas();
@@ -32,8 +33,14 @@ class Game {
             this.player.draw();
             // Do the same to draw
             this.gameObjects.forEach((gameObject, index) => {
-                gameObject.draw()
+                //gameObject.draw()
             })
+
+            // logger
+            if (this.gameState.logger) {
+                this.player.log()
+                this.gameState.logger = false;
+            }
             
             requestAnimationFrame(gameLoop);
         }
@@ -52,15 +59,14 @@ class Game {
     loadPlayerController() {
         document.onmousedown = (e) => {
             this.gameState.playerState.position = {
-                ...this.gameState.playerState.position
-            }
-        }
-        
-        document.onmouseup = (e) => {
-            this.gameState.playerState.position = {
                 x: e.clientX,
                 y: e.clientY
             }
+            this.gameState.logger = true;
+        }
+        
+        document.onmouseup = (e) => {
+            this.gameState.logger = false;
         }
     }
 }

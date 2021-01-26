@@ -12,8 +12,7 @@ class Ship {
         this.canvas = canvas;
         this.health = generateHealthComponent({ 
             position: this.position, 
-            shipUI: this.shipUI,
-            base: this.base
+            shipUI: this.shipUI
         })
         this.radar = generateRadarComponent({
             position: this.position, 
@@ -59,21 +58,27 @@ class Ship {
         const dx = this.position.x - position.x;
         const dy = this.position.y - position.y;
         if (this.position.x != position.x){
-            this.position.x -= dx / 90;
+            this.position.x -= dx / 100
         }
         if (this.position.y != position.y){
-            this.position.y -= dy / 90;
+            this.position.y -= dy / 100;
         }
 
-        this._updateHealth({ health, position: this.position, shipSize: this.shipUI.shipWidth})
-        this._updateRadar({ position: this.position })
+        this._updateHealth({ 
+            health,
+            position: this.position,
+            shipSize: this.shipUI.shipWidth
+        })
+        this._updateRadar({ 
+            position: this.position 
+        })
     }
 
     // -------------------------
 
     _drawHealth() {
         this.ctx.beginPath();
-        this.ctx.lineWidth = 2;
+        this.ctx.lineWidth = 1;
         this.ctx.strokeStyle = "#333";
         this.ctx.fillStyle = this.health.color;
         this.ctx.fillRect(this.health.x, this.health.y, this.health.w, this.health.h);
@@ -81,14 +86,14 @@ class Ship {
     }
 
     _updateHealth({ health, position, shipSize }) {
-        if (this._health  > 0) {
+        if (health  > 0) {
             const { x, y } = position;
             this.health = {
                 ...this.health,
-                health: health,
-                x: x - (this._w / 2),
+                healthValue: health,
+                x: x - this.health.maxWidth / 2,
                 y: y + shipSize * 2,
-                w: (this._health / this._maxHealth) * this._maxWidth
+                w: (health / this.health.maxHealth) * this.health.maxWidth
             }
         }
     }
@@ -107,6 +112,14 @@ class Ship {
             x: x - (this.radar.w / 2),
             y: y - (this.radar.h / 2)
         }
+    }
+
+    _toLog() {
+        console.log(`[Ship]-[${this.name}]`, {
+            position: this.position,
+            health: this.health,
+            radar: this.radar
+        })
     }
 }
 

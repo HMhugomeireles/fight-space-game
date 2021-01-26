@@ -4,10 +4,10 @@ const HealthBar = {
             x: x,
             y: y,
             w: w,
-            h: 5,
+            h: 6,
             maxHealth: maxHealth,
             maxWidth: w,
-            health: maxHealth,
+            healthValue: maxHealth,
             color: color,
         }
     }

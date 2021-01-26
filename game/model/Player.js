@@ -12,6 +12,10 @@ class Player extends Ship {
     update(userState){
         super._update(userState)
     }
+
+    log() {
+        super._toLog()
+    }
     
 }
 

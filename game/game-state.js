@@ -1,4 +1,5 @@
 const gameState = {
+    logger: true,
     playerState: {
         position: {
             x: 100,

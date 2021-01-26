@@ -1,11 +1,11 @@
 import Health from './Health'
 import Radar from './Radar'
 
-export function generateHealthComponent({ position, shipUI, base }) {
+export function generateHealthComponent({ position, shipUI }) {
     const w = shipUI.healthWidth + shipUI.shipWidth
     const x = position.x - (w / 2)
     const y = position.y + shipUI.shipWidth * 2
-    const maxHealth = base;
+    const maxHealth = 100;
 
     return Health.build(x, y, w, maxHealth, "green")
 }
