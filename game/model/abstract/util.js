@@ -15,7 +15,5 @@ export function generateRadarComponent({ position, radarWidth, radarRange }) {
     const x = position.x - (w / 2)
     const y = position.y - (w / 2);
 
-    console.log({ position, x, y, w })
-
     return Radar.build(x, y, w)
 }
