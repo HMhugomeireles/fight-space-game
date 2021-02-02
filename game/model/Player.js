@@ -3,6 +3,9 @@ import Ship from './abstract/Ship'
 class Player extends Ship {
     constructor(initialShipState, canvasContext, canvas) {
         super(initialShipState, canvasContext, canvas)
+        this.bulletsUI = [];
+        this.missiesUI = {};
+        this.numberOfMissies = 3;
     }
 
     draw() {
@@ -11,6 +14,10 @@ class Player extends Ship {
 
     update(userState){
         super._update(userState)
+    }
+
+    getPosition() {
+        return super.getPosition()
     }
 
     log() {

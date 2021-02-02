@@ -120,6 +120,10 @@ class Ship {
         }
     }
 
+    getPosition() {
+        return this.position
+    }
+
     _toLog() {
         console.log(`[Ship]-[${this.name}]`, {
             position: this.position,

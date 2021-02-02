@@ -58,15 +58,19 @@ class Game {
 
     loadPlayerController() {
         document.onmousedown = (e) => {
+            // check if other object are in the position
+            // move to the range
+            // fire projectiles
+
             this.gameState.playerState.position = {
                 x: e.clientX,
                 y: e.clientY
             }
-            this.gameState.logger = true;
+            //this.gameState.logger = true;
         }
         
         document.onmouseup = (e) => {
-            this.gameState.logger = false;
+            //this.gameState.logger = false;
         }
     }
 }
