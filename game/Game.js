@@ -58,13 +58,22 @@ class Game {
 
     loadPlayerController() {
         document.onmousedown = (e) => {
+            const positionClicked = {
+                x: e.clientX,
+                y: e.clientY
+            }
             // check if other object are in the position
+            let positionToNavegate = {}
+            this.gameObjects.forEach(gameObejct => {
+                if (gameObject.isSamePosition(positionClicked)) {
+                    positionToNavegate = gameObject.getCurrentPosition()
+                }
+            })
             // move to the range
             // fire projectiles
 
             this.gameState.playerState.position = {
-                x: e.clientX,
-                y: e.clientY
+                
             }
             //this.gameState.logger = true;
         }
