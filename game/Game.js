@@ -1,4 +1,4 @@
-
+import { createGridMap } from './util'
 class Game {
     constructor(initialState, { player, gameObjects }, canvasContext, canvas) {
         this.ctx = canvasContext;
@@ -6,11 +6,12 @@ class Game {
         this.gameObjects = [...gameObjects];
         this.player = player;
         this.gameState = initialState;
-        this.count = 0
+        this.gameMap = []
     }
 
     start() {
         this.loadPlayerController()
+        this.gameMap = createGridMap(this.canvas.width, this.canvas.height);
 
         let secondsPassed;
         let oldTimeStamp;
@@ -30,6 +31,9 @@ class Game {
             
             this.clearCanvas();
             
+            this.gameMap.forEach(cell => {
+                cell.draw(this.ctx);
+            })
             this.player.draw();
             // Do the same to draw
             this.gameObjects.forEach((gameObject, index) => {
