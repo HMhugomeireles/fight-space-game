@@ -12,6 +12,14 @@ class Enemy extends Ship {
     update(userState) {
         super._update(userState)
     }
+
+    getCurrentPosition() {
+        return super.getPosition()
+    }
+
+    isSamePosition(positionToCheck) {
+        return (JSON.stringify(positionToCheck) === JSON.stringify(super.getPosition()))
+    }
 }
 
 export default Enemy

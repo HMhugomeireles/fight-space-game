@@ -63,19 +63,30 @@ class Game {
                 y: e.clientY
             }
             // check if other object are in the position
-            let positionToNavegate = {}
-            this.gameObjects.forEach(gameObejct => {
+            let positionToNavigate;
+            this.gameObjects.forEach(gameObject => {
                 if (gameObject.isSamePosition(positionClicked)) {
-                    positionToNavegate = gameObject.getCurrentPosition()
+                    positionToNavigate = gameObject.getCurrentPosition()
                 }
             })
             // move to the range
+            if (positionToNavigate) {
+                this.gameState.playerState.position = {
+                    x: positionToNavigate.x - 100,
+                    y: positionToNavigate.y + 100
+                }
+                this.gameState.playerState.target = {
+                    type: 'lock',
+                }
+            }
+            
             // fire projectiles
 
-            this.gameState.playerState.position = {
-                
-            }
-            //this.gameState.logger = true;
+            
+            // move default
+            this.gameState.playerState.position = positionClicked
+
+            this.gameState.logger = true;
         }
         
         document.onmouseup = (e) => {

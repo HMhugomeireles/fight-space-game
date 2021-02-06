@@ -21,7 +21,7 @@ const mark1 = {
         color: "red"
     },
     base: {
-        radarRange: 1.6,
+        radarRange: 3,
         shield: 0,
         damage: 0.6,
         speed: 1.5
